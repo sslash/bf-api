@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS boyfriendr-dev;
+CREATE DATABASE IF NOT EXISTS boyfriendr-test;
