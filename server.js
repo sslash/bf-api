@@ -33,14 +33,14 @@ if (process.env.NODE_ENV !== 'test') {
     app.use(logger('dev'));
 }
 
-app.use(errorHandler());
-
 app.use('/api/v1/conversations', conversations);
 app.use('/api/v1/users', users);
 
 app.get('/',function(req,res){
     res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
+
+app.use(errorHandler());
 
 const pe = new PrettyError();
 pe.skipNodeFiles();

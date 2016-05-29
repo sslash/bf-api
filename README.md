@@ -10,3 +10,8 @@
 * Add Answer
     text
     user_input_answer (checkbox)
+
+
+### TODO
+* set conv title
+* save conversation, then save all messages with answers

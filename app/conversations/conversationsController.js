@@ -6,12 +6,27 @@ function getAll(req, res, next) {
         res.status(200)
         .json({
             conversations: conversations ? conversations.length : 0,
-            result: conversations 
+            result: conversations
         });
     })
     .catch(next);
 }
 
+function create(req, res, next) {
+    const conversation = req.body.conversation;
+
+    if (!conversation) {
+        return next({message: 'conversation must be included', status: 401});
+    }
+
+    conversationsService.create(conversation)
+    .then((result) => {
+        res.status(200).json(result);
+    })
+    .catch(next);
+}
+
 module.exports = {
-    getAll: getAll
+    getAll: getAll,
+    create: create
 };
