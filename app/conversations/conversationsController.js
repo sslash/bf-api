@@ -1,7 +1,8 @@
 const conversationsService = require('./conversationsService');
 
 function getAll(req, res, next) {
-    conversationsService.getAll()
+    const lastSeenId = req.query.lastSeenId;
+    conversationsService.getAll(lastSeenId)
     .then((conversations) => {
         res.status(200)
         .json({

@@ -13,5 +13,4 @@
 
 
 ### TODO
-* set conv title
 * save conversation, then save all messages with answers

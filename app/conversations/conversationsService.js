@@ -3,10 +3,11 @@ var Promise = require('bluebird');
 var conversationsDAO = require('./conversationsDAO');
 var knex = require('../../db/knex');
 var log = require('../helpers/logger');
+const notificationService = require('../notifications/notificationService');
 
 
-function getAll () {
-    return conversationsDAO.getAll();
+function getAll (lastSeenId) {
+    return conversationsDAO.getAll(lastSeenId);
 }
 
 function create (conversation) {
@@ -82,6 +83,7 @@ function create (conversation) {
         })
         .then(function(inserts) {
             log.info(inserts.length + ' new messages saved.');
+            // notificationService.sendNotification();
             resolve(inserts);
         })
         .catch(function(error) {

@@ -7,7 +7,8 @@ function Conversations() {
 
 // *** queries *** //
 
-function getAll() {
+function getAll(conversationId) {
+    conversationId = conversationId || 0;
     return Conversations()
         .join('messages as msg', 'conv.id', '=', 'msg.conversations_id')
         .leftJoin('answer as answ', 'answ.id', '=', 'msg.answer_post_id')
@@ -16,6 +17,7 @@ function getAll() {
         .select('answer_post_id')
         .select('user_input_answer')
         .select('msg.*')
+        .where('conv.id', '>', conversationId)
         .then(mapResult);
 }
 
