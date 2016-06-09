@@ -83,7 +83,10 @@ function create (conversation) {
         })
         .then(function(inserts) {
             log.info(inserts.length + ' new messages saved.');
-            // notificationService.sendNotification();
+
+            // send out a notification
+            setTimeout(notificationService.sendNotification);
+
             resolve(inserts);
         })
         .catch(function(error) {

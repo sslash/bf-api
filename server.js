@@ -46,5 +46,15 @@ const pe = new PrettyError();
 pe.skipNodeFiles();
 pe.skipPackage('express');
 
+if (process.env.SEND_TOKEN) {
+    require('./app/notifications/notificationService').sendNotification()
+    .then(() => {
+        console.log('win');
+    })
+    .catch((err) => {
+        console.error('Failed to send notification', err);
+    })
+}
+
 //
 module.exports = app;
