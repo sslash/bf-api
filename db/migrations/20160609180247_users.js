@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
         table.increments();
 
         table.string('app_token').unique();
-        table.string('app_os');
+        table.string('app_os');        
     });
 };
 

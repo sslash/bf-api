@@ -66,7 +66,8 @@ function create (conversation) {
                         const messageData = {
                             text: message.text,
                             conversations_id: convId,
-                            answer_post_id: answerId
+                            answer_post_id: answerId,
+                            image: message.image
                             // table.json('messages_for_answer_options');
                         }
 

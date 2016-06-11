@@ -85,11 +85,18 @@ class Message extends React.Component {
         this.setState({editMessage: !this.state.editMessage});
     }
 
+    onAddImage = () => {
+        this.props.updateMessage({
+            image: this.imageInput.value
+        });
+    }
+
     render () {
         const {message, onAddAnswer, onDelete} = this.props;
         const editMessage = this.state.editMessage;
         const placeholder = message.get('title') || 'Message text';
         const messageText = message.get('text');
+        const imageUrl = message.get('image');
 
         return (
             <div>
@@ -129,7 +136,30 @@ class Message extends React.Component {
                                 {messageText}
                             </div>
                         }
-                    </div>
+
+                        {!imageUrl &&
+                            <div className="form-inline">
+                                <input
+                                    type="url"
+                                    className="form-control"
+                                    placeholder="Paste image or gif URL"
+                                    ref={(ref) => this.imageInput = ref}
+                                />
+                                <button
+                                    className="btn btn-default btn-sm"
+                                    onClick={this.onAddImage}
+                                    style={{marginLeft: 5}}>Ok
+                                </button>
+                            </div>
+                        }
+
+                        {!!imageUrl &&
+                            <div>
+                                {imageUrl}
+                            </div>
+                        }
+                        </div>
+
                     <div>
                         {!!messageText && <button className="btn btn-default btn-sm" onClick={this.editMessage}>Edit</button>}
                         <button className="btn btn-danger btn-sm mls" onClick={onDelete}>Remove</button>
