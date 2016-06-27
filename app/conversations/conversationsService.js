@@ -24,7 +24,10 @@ function create (conversation) {
         knex.transaction(function(trx) {
 
             return trx
-            .insert({name: conversation.name}, 'id')
+            .insert({
+                name: conversation.name,
+                schedule_notification: conversation.scheduleNotification
+            }, 'id')
             .into('conversations')
             .then(function(ids) {
 

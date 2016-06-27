@@ -8,6 +8,7 @@ var app = require('./server');
 var debug = require('debug')('boyfriendr-api:server');
 var http = require('http');
 var domainMiddleware = require('domain-middleware');
+var log = require('./app/helpers/logger');
 
 
 /**
@@ -93,7 +94,8 @@ function onListening() {
     var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+
+    log.info('Web api listening on ' + bind);
 }
 
 

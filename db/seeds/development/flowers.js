@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
       return knex('conversations')
       .insert({
           id: 2,
-          name: 'First tipe'
+          name: 'First time'
       })
       .then(function () {
           return knex('messages').insert({

@@ -14,6 +14,8 @@ function getAll(conversationId) {
         .leftJoin('answer as answ', 'answ.id', '=', 'msg.answer_post_id')
         .orderBy('msg.id', 'asc')
         .select('answ.text as answer_text')
+        .select('conv.name AS reminder_text')
+        .select('conv.schedule_notification')
         .select('answer_post_id')
         .select('user_input_answer')
         .select('msg.*')

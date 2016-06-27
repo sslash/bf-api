@@ -11,6 +11,9 @@ function createFromToken(req, res, next) {
 
     logger.info('Creating new user', data);
 
+    return res.send();
+    
+
     if (!body.token || !body.os) {
         logger.info('tried to create user from token with illegal input', body);
         return next({message: 'must have token and os'});

@@ -18,7 +18,8 @@ export default class ConversationForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            conversation: initialState
+            conversation: initialState,
+            scheduleNotification: true
         };
     }
 
@@ -64,8 +65,11 @@ export default class ConversationForm extends React.Component {
         // with all messages in same call
         this.setState({saving: true});
 
+        let conv = this.state.conversation.toJSON();
+        conv.scheduleNotification = this.state.scheduleNotification;
+
         req.post('/api/v1/conversations', {
-            conversation: this.state.conversation.toJSON()
+            conversation: conv
         })
         .then((res) => {
             this.setState({saving: false, savedConversation: true});
@@ -90,19 +94,27 @@ export default class ConversationForm extends React.Component {
 
                 <div className="flex mvl justify-space-between align-items-center">
                     <div>
-                        <p><small>Set a subject title for this conversation</small></p>
-                            <input
-                                className="form-control"
-                                placeholder="Conversation title"
-                                style={{maxWidth: 300}}
-                                ref={(ref) => this.convTitle = ref}
-                                onBlur={this.savedConversationName}
-                            />
-                        </div>
-                    <div>
-                        <button className="btn btn-primary" onClick={this.onNewMessageClick}>Add Message</button>
+                        <label htmlFor="schedule-notification">Schedule reminder</label>
+                        <input 
+                            style={{marginLeft: 5}}
+                            id="schedule-notification"
+                            type="checkbox" 
+                            checked={this.state.scheduleNotification}
+                            onChange={() => this.setState({scheduleNotification: !this.state.scheduleNotification})} 
+                        />
+                        <p><small>Title (also used as notification/reminder)</small></p>                        
+                        <input
+                            className="form-control"
+                            placeholder="Title / Reminder text"
+                            style={{maxWidth: 300}}
+                            ref={(ref) => this.convTitle = ref}
+                            onBlur={this.savedConversationName}
+                        />
                     </div>
+                <div>
+                    <button className="btn btn-primary" onClick={this.onNewMessageClick}>Add Message</button>
                 </div>
+            </div>
 
                 {messages.map((msg, i) => (
                     <Message

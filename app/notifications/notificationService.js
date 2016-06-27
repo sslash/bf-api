@@ -18,9 +18,7 @@ var knex = require('../../db/knex.js');
 function _sendNotifications (userTokens) {
     return userTokens.map((userRes) => {
         var token = userRes.app_token;
-
-        logger.info('Sending notification1: ', userRes);
-        logger.info('Sending notification: ', token);
+        logger.info('Sending notification: ', {token, userRes});
 
         var myDevice = new apn.Device(token);
 
@@ -32,8 +30,14 @@ function _sendNotifications (userTokens) {
         note.alert = "Hey! I have a message for you.";
         note.payload = {};
 
-        return apnConnection.pushNotification(note, myDevice);
-
+        // resolve even if it fails
+        return new Promise(resolve => 
+            setTimeout(() => {
+                apnConnection.pushNotification(note, myDevice)
+                .then(resolve)
+                .catch(resolve);
+            })
+        );
     });
 }
 
